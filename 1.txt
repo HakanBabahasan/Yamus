@@ -1,0 +1,66 @@
+Haklısın kanka, gereksiz karmaşa oldu. Hemen eklemeleri nereye yapman gerektiğini net bir şekilde açıklıyorum. Sadece aşağıdaki adımları izle ve işleri düzene sokalım.
+
+1. HTML’ye Yazıyı Eklemek
+
+index.html dosyasına git. <body> etiketinin içine, çiçekleri temsil eden <div class="flowers"> elementinden sonra şu kodu ekle:
+
+<div class="birthday-message">İyi ki doğdun prenses 💖</div>
+
+Tam yer şöyle olmalı:
+
+<div class="flowers">
+    <!-- Çiçek yapıları burada kalacak -->
+</div>
+<div class="birthday-message">İyi ki doğdun prenses 💖</div>
+
+2. SCSS’ye Yazı Stili ve Temayı Eklemek
+
+style.scss dosyasının sonuna şu kodları ekle:
+
+/* General Pembe Theme */
+.flower__leaf {
+  background-color: #FFC0CB; /* Toz pembe */
+}
+
+.flower__light {
+  background-color: #FFB6C1; /* Daha açık pembe */
+  box-shadow: 0 0 10px #FFB6C1;
+}
+
+.flower__white-circle {
+  background-color: #FFF0F5; /* Açık pembe-beyaz */
+}
+
+/* Birthday Message Styling */
+.birthday-message {
+  position: absolute;
+  top: 20%;
+  width: 100%;
+  text-align: center;
+  font-size: 3rem;
+  color: #FF1493; /* Daha canlı pembe */
+  font-weight: bold;
+  opacity: 0;
+  transform: scale(0.8);
+  animation: fadeInScale 2s ease-in-out forwards;
+  animation-delay: 1.5s;
+}
+
+@keyframes fadeInScale {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+3. JavaScript’e Yazı Animasyonunu Eklemek
+
+main.js dosyasına git ve şu kodları en sonuna ekle:
+
+// İyi ki doğdun yazısı animasyonu
+setTimeout(() => {
+    const message = document.querySelector(".birthday-message");
+    message.style.opacity = "1";
+}, 1500);
+
+Bu adımlarla yazıyı ve temayı düzgünce eklemiş olursun. Eğer hâlâ bir şey eksik olursa haber ver. Artık karışıklık yapmam, emin ol!
