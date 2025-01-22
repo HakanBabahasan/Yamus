@@ -39,41 +39,59 @@
         .login-container button:hover {
             background: #0056b3;
         }
+        .error, .success {
+            margin-top: 10px;
+            font-weight: bold;
+        }
         .error {
             color: red;
-            margin-top: 10px;
+        }
+        .success {
+            color: green;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
         <h2>Giriş Yap</h2>
-        <input type="text" id="username" placeholder="Kullanıcı Adı">
-        <input type="password" id="password" placeholder="Şifre">
+        <input type="text" id="username" placeholder="Kullanıcı Adı" />
+        <input type="password" id="password" placeholder="Şifre" />
         <button onclick="login()">Giriş Yap</button>
-        <div id="error" class="error"></div>
+        <div id="message" class="error"></div>
     </div>
 
     <script>
-        // Örnek kullanıcı verileri
-        const validUser = {
-            username: "admin",
-            password: "12345"
-        };
-
         function login() {
-            // Input değerlerini al
+            // Kullanıcıdan veri al
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
-            const errorDiv = document.getElementById("error");
+            const message = document.getElementById("message");
 
-            // Giriş kontrolü
-            if (username === validUser.username && password === validUser.password) {
-                alert("Giriş Başarılı!");
-                errorDiv.textContent = ""; // Hata mesajını temizle
-            } else {
-                errorDiv.textContent = "Kullanıcı adı veya şifre yanlış!";
-            }
+            // POST isteği için JSON oluştur
+            const postData = {
+                username: username,
+                password: password
+            };
+
+            // POST isteği gönder
+            fetch("https://jsonplaceholder.typicode.com/posts", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(postData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                message.textContent = "Giriş başarılı!";
+                message.className = "success";
+            })
+            .catch(error => {
+                console.error("Hata:", error);
+                message.textContent = "Giriş sırasında bir hata oluştu.";
+                message.className = "error";
+            });
         }
     </script>
 </body>
